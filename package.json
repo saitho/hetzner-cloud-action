@@ -7,20 +7,15 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest --detectOpenHandles --coverage --verbose",
     "semantic-release": "semantic-release",
     "commit": "git-cz"
   },
   "devDependencies": {
     "@saithodev/semantic-release-sharedconf-npm": "^2.0.2",
-    "@types/jest": "^24.0.23",
     "@types/node": "^13.13.4",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
-    "jest": "^24.9.0",
     "semantic-release": "^16.0.1",
-    "ts-jest": "^24.2.0",
-    "ts-mockito": "^2.5.0",
     "typescript": "^3.7.3"
   },
   "config": {

@@ -14,11 +14,3 @@ Please run the following command to setup the Commitizen commit message hook:
 echo '#!/bin/bash
 exec < /dev/tty && node_modules/.bin/git-cz --hook || true' > .git/hooks/prepare-commit-msg && chmod +x .git/hooks/prepare-commit-msg
 ```
-
-## Running tests
-
-Run tests by this command:
-
-```shell script
-npm run test
-```

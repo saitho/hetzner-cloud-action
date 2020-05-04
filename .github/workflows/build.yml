@@ -1,0 +1,64 @@
+name: Build
+on: [pull_request]
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install
+        run: npm i -g pnpm && pnpm i
+      - name: Build
+        run: pnpm run build
+      - name: Upload build output
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+  test:
+    name: test
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download build output
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Install
+        run: npm i -g pnpm && pnpm i -P
+      - name: Create new Hetzner server
+        id: setup_server
+        uses: ./
+        with:
+          action: create
+          server_name: pr-${{ github.run_id }}
+          server_image: ubuntu-18.04
+          server_location: fsn1
+          server_ssh_key_name: github-ci
+        env:
+          API_TOKEN: ${{ secrets.HETZNER_TOKEN }}
+      - uses: webfactory/ssh-agent@v0.2.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Work with the server
+        run: echo 'do stuff on ${{ steps.setup_server.outputs.hcloud_server_created_ipv4 }}'
+      - name: Remove Hetzner server
+        uses: ./
+        if: always()
+        with:
+          action: remove
+          server_id: ${{ steps.setup_server.outputs.hcloud_server_id }}
+        env:
+          API_TOKEN: ${{ secrets.HETZNER_TOKEN }}

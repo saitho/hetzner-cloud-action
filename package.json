@@ -14,6 +14,7 @@
   "devDependencies": {
     "@saithodev/semantic-release-sharedconf-npm": "^2.0.2",
     "@types/jest": "^24.0.23",
+    "@types/node": "^13.13.4",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "jest": "^24.9.0",
@@ -26,5 +27,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "hcloud-js": "^1.2.0",
+    "hcloud-nodejs": "^0.1.9"
   }
 }

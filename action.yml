@@ -6,11 +6,33 @@ branding:
   color: gray-dark
 inputs:
   action:
-    description: The action to perform
+    description: The action to perform (create, delete, start, stop)
     required: true
+  server_id:
+    description: ID of the server - required for action=delete
+    required: false
+  server_name:
+    description: Name of the server - required for action=create
+    required: false
+  server_type:
+    description: Server type to set up
+    required: false
+  server_image:
+    description: Image used to create the server. Required for action=create
+    required: false
+  server_location:
+    description: "Location of your server (default: nbg1)"
+    required: false
+  server_ssh_key_name:
+    description: Name of the SSH key you want to use to connect to the server.
+    required: false
 outputs:
   hcloud_server_id:
     description: ID of the server affected by the last action
+  hcloud_server_created_ipv4:
+    description: IPv4 address of the last created server
+  hcloud_server_created_ipv6:
+    description: IPv6 address of the last created server
 runs:
   using: node12
   main: dist/index.js

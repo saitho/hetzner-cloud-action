@@ -2,8 +2,8 @@ name: Hetzner Cloud (unofficial)
 description: GitHub Action for interacting with Hetzner Cloud
 author: saitho
 branding:
-  icon: 'package'
-  color: gray-dark
+  icon: 'server'
+  color: red
 inputs:
   action:
     description: The action to perform (create, delete, start, stop)

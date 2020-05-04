@@ -3,7 +3,7 @@
   "plugins": [
     [
       "@semantic-release/exec",
-      {"prepareCmd": "pnpm run build && git add dist -f"}
+      {"prepareCmd": "git add node_modules dist -f"}
     ],
     [
       "@semantic-release/git",

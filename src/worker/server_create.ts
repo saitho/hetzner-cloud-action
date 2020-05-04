@@ -31,7 +31,6 @@ export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
             }
             server.create()
                 .then(async (response) => {
-                    const serverId = response.server.id
                     let actionStatus = response.action.status;
                     if (actionStatus === 'running') {
                         actionStatus = await this.waitUntilFinished(response.action.id);

@@ -18,9 +18,9 @@ jobs:
         with:
           node-version: 12
       - name: Install
-        run: npm i -g pnpm && pnpm i
+        run: npm install -P
       - name: Build
-        run: pnpm run build
+        run: npm run build
       - name: Upload build output
         uses: actions/upload-artifact@v1
         with:
@@ -34,10 +34,13 @@ jobs:
       - uses: actions/download-artifact@v1
         with:
           name: dist
-      - uses: actions/setup-node@v1
-      - name: PNPM install
-        run: npm i -g pnpm && pnpm i
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install
+        run: npm install
       - name: Semantic Release Action
-        uses: saitho/semantic-release-action-pnpm@master
+        uses: cycjimmy/semantic-release-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

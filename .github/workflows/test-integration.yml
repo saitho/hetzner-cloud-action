@@ -1,5 +1,5 @@
-name: Build
-on: [pull_request]
+name: Integration test
+on: [ pull_request ]
 jobs:
   build:
     name: build

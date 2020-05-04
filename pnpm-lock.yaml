@@ -7,7 +7,6 @@ devDependencies:
   semantic-release: 16.0.1_semantic-release@16.0.1
   ts-jest: 24.3.0_jest@24.9.0
   ts-mockito: 2.5.0
-  typedoc: 0.15.8
   typescript: 3.7.4
 lockfileVersion: 5.1
 packages:
@@ -1111,12 +1110,6 @@ packages:
     optional: true
     resolution:
       integrity: sha1-llxwWGaOgrVde/4E/yM3vItWR/4=
-  /backbone/1.4.0:
-    dependencies:
-      underscore: 1.9.2
-    dev: true
-    resolution:
-      integrity: sha512-RLmDrRXkVdouTg38jcgHhyQ/2zjg7a8E6sz2zxfz21Hh17xDJYUHBZimVIt5fUyS8vbfpeSmTL3gUjTEvUV3qQ==
   /balanced-match/1.0.0:
     dev: true
     resolution:
@@ -2505,19 +2498,6 @@ packages:
       uglify-js: 3.7.4
     resolution:
       integrity: sha512-3yPecJoJHK/4c6aZhSvxOyG4vJKDshV36VHp0iVCDVh7o9w2vwi3NSnL2MMPj3YdduqaBcu7cGbggJQM0br9xA==
-  /handlebars/4.7.0:
-    dependencies:
-      neo-async: 2.6.1
-      optimist: 0.6.1
-      source-map: 0.6.1
-    dev: true
-    engines:
-      node: '>=0.4.7'
-    hasBin: true
-    optionalDependencies:
-      uglify-js: 3.7.4
-    resolution:
-      integrity: sha512-PaZ6G6nYzfJ0Hd1WIhOpsnUPWh1R0Pg//r4wEYOtzG65c2V8RJQ/++yYlVmuoQ7EMXcb4eri5+FB2XH1Lwed9g==
   /handlebars/4.7.2:
     dependencies:
       neo-async: 2.6.1
@@ -2607,12 +2587,6 @@ packages:
       node: '>= 0.4.0'
     resolution:
       integrity: sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==
-  /highlight.js/9.17.1:
-    dependencies:
-      handlebars: 4.7.0
-    dev: true
-    resolution:
-      integrity: sha512-TA2/doAur5Ol8+iM3Ov7qy3jYcr/QiJ2eDTdRF4dfbjG7AaaB99J5G+zSl11ljbl6cIcahgPY6SKb3sC3EJ0fw==
   /homedir-polyfill/1.0.3:
     dependencies:
       parse-passwd: 1.0.0
@@ -3572,10 +3546,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-YvkBL1Zm7d2B1+h5fHEOdyjCG+sGMz4f8D86/0HiqJ6MB4MnDc8FgP5vdWsGnemOQro7lnYo8UakZ3+5A0jxGw==
-  /jquery/3.4.1:
-    dev: true
-    resolution:
-      integrity: sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==
   /js-tokens/4.0.0:
     dev: true
     resolution:
@@ -3858,10 +3828,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
-  /lunr/2.3.8:
-    dev: true
-    resolution:
-      integrity: sha512-oxMeX/Y35PNFuZoHp+jUj5OSEmLCaIH4KTFJh7a93cHBoFmpw2IoPs22VIz7vyO2YUnx2Tn9dzIwO2P/4quIRg==
   /macos-release/2.3.0:
     dev: true
     engines:
@@ -4803,12 +4769,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
-  /progress/2.0.3:
-    dev: true
-    engines:
-      node: '>=0.4.0'
-    resolution:
-      integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
   /promise/8.0.3:
     dependencies:
       asap: 2.0.6
@@ -5390,17 +5350,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-N5zM+1a5HIYB5HkzVutTgpJN6a0=
-  /shelljs/0.8.3:
-    dependencies:
-      glob: 7.1.6
-      interpret: 1.2.0
-      rechoir: 0.6.2
-    dev: true
-    engines:
-      node: '>=4'
-    hasBin: true
-    resolution:
-      integrity: sha512-fc0BKlAWiLpwZljmOvAOTE/gXawtCoNrP5oaY7KIaQbbyHeQVg01pSEuEGvGh3HEdBU4baCD7wQBwADmM/7f7A==
   /shellwords/0.1.1:
     dev: true
     resolution:
@@ -6055,36 +6004,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-  /typedoc-default-themes/0.6.3:
-    dependencies:
-      backbone: 1.4.0
-      jquery: 3.4.1
-      lunr: 2.3.8
-      underscore: 1.9.2
-    dev: true
-    engines:
-      node: '>= 8'
-    resolution:
-      integrity: sha512-rouf0TcIA4M2nOQFfC7Zp4NEwoYiEX4vX/ZtudJWU9IHA29MPC+PPgSXYLPESkUo7FuB//GxigO3mk9Qe1xp3Q==
-  /typedoc/0.15.8:
-    dependencies:
-      '@types/minimatch': 3.0.3
-      fs-extra: 8.1.0
-      handlebars: 4.7.0
-      highlight.js: 9.17.1
-      lodash: 4.17.15
-      marked: 0.8.0
-      minimatch: 3.0.4
-      progress: 2.0.3
-      shelljs: 0.8.3
-      typedoc-default-themes: 0.6.3
-      typescript: 3.7.4
-    dev: true
-    engines:
-      node: '>= 6.0.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-a0zypcvfIFsS7Gqpf2MkC1+jNND3K1Om38pbDdy/gYWX01NuJZhC5+O0HkIp0oRIZOo7PWrA5+fC24zkANY28Q==
   /typescript/3.7.4:
     dev: true
     engines:
@@ -6114,10 +6033,6 @@ packages:
     optional: true
     resolution:
       integrity: sha512-GFZ3EXRptKGvb/C1Sq6nO1iI7AGcjyqmIyOw0DrD0675e+NNbGO72xmMM2iEBdFbxaTLo70NbjM/Wy54uZIlsg==
-  /underscore/1.9.2:
-    dev: true
-    resolution:
-      integrity: sha512-D39qtimx0c1fI3ya1Lnhk3E9nONswSKhnffBI0gME9C99fYOkNi04xs8K6pePLhvl1frbDemkaBQ5ikWllR2HQ==
   /union-value/1.0.1:
     dependencies:
       arr-union: 3.1.0
@@ -6419,5 +6334,4 @@ specifiers:
   semantic-release: ^16.0.1
   ts-jest: ^24.2.0
   ts-mockito: ^2.5.0
-  typedoc: ^0.15.8
   typescript: ^3.7.3

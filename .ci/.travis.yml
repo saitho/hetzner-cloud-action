@@ -1,0 +1,35 @@
+language: node_js
+os: linux
+dist: trusty
+
+cache:
+  directories:
+  - node_modules
+
+install:
+  - npm i pnpm -g
+  - pnpm install
+
+jobs:
+  include:
+    - stage: build
+      script:
+        - pnpm run build
+    - stage: test code
+      addons:
+        sonarcloud:
+          organization: my-organization
+      script:
+        - pnpm test
+        - sonar-scanner
+    - stage: release
+      if: branch = master
+      node_js: lts/*
+      script:
+        - mkdir -p docs
+        - pnpm run build
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - pnpx semantic-release

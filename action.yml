@@ -1,0 +1,16 @@
+name: Hetzner Cloud (unofficial)
+description: GitHub Action for interacting with Hetzner Cloud
+author: saitho
+branding:
+  icon: 'package'
+  color: gray-dark
+inputs:
+  action:
+    description: The action to perform
+    required: true
+outputs:
+  hcloud_server_id:
+    description: ID of the server affected by the last action
+runs:
+  using: node12
+  main: dist/index.js

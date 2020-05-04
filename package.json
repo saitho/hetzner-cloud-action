@@ -1,19 +1,12 @@
 {
-  "name": "my-npm-project",
-  "description": "",
-  "version": "1.0.0-dev",
-  "author": "",
-  "license": "MIT",
-  "keywords": [
-  ],
+  "private": true,
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/saitho/nodejs-package-template.git"
+    "url": "https://github.com/saitho/hetzner-cloud-action.git"
   },
   "scripts": {
     "build": "tsc",
-    "docs:build": "typedoc --out ./docs --mode modules --tsconfig ./tsconfig.json ./src/ && touch ./docs/.nojekyll",
     "test": "jest --detectOpenHandles --coverage --verbose",
     "semantic-release": "semantic-release",
     "commit": "git-cz"
@@ -27,7 +20,6 @@
     "semantic-release": "^16.0.1",
     "ts-jest": "^24.2.0",
     "ts-mockito": "^2.5.0",
-    "typedoc": "^0.15.8",
     "typescript": "^3.7.3"
   },
   "config": {

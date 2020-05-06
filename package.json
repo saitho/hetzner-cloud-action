@@ -6,13 +6,14 @@
     "url": "https://github.com/saitho/hetzner-cloud-action.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "ncc build src/index.ts",
     "semantic-release": "semantic-release",
     "commit": "git-cz"
   },
   "devDependencies": {
     "@saithodev/semantic-release-sharedconf-npm": "^2.0.2",
     "@types/node": "^13.13.4",
+    "@zeit/ncc": "^0.22.1",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
     "semantic-release": "^16.0.1",

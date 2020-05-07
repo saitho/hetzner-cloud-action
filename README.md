@@ -73,7 +73,7 @@ Make sure to set `server_ssh_key_name` to the name you specified on your Hetzner
 Create a new SSH key without a passphrase:
 
 ```
-ssh-keygen -f ./my-ssh-key
+ssh-keygen -f ./my-ssh-key -m pem -C gh-actions
 ```
 
 This will create two files: `my-ssh-key` (private key) and `my-ssh-key.pub` (public key).

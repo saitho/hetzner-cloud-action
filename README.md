@@ -60,6 +60,21 @@ jobs:
         API_TOKEN: ${{ secrets.HETZNER_TOKEN }}
 ```
 
+## Server boot time
+
+In some cases the server may need some more time to be ready for connections.
+Unfortunately GitHub runners can't use `ping` to check if the server can be reached.
+You may want to add a sleep step after creating the server in order to make sure it's ready when working with it.
+
+```yaml
+jobs:
+  startServer:
+    steps:
+      # ... create step here ...
+      - name: wait for server
+        run: sleep 5 # wait for 5 seconds
+```
+
 ## SSH keys
 
 You can set up an SSH key which you or your CI can use to connect to the newly created server.

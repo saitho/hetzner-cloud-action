@@ -1,5 +1,6 @@
 import {ServerWorker} from "./worker";
 import * as hcloud from 'hcloud-js';
+import * as ping from 'ping';
 import {Server} from "../interfaces/server";
 
 export interface ServerCreateData {
@@ -36,7 +37,14 @@ export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
                         actionStatus = await this.waitUntilFinished(response.action.id);
                     }
                     if (actionStatus === 'error') {
-                        reject(`Removing the server failed. (action id: ${response.action.id})`);
+                        reject(`Creating the server failed. (action id: ${response.action.id})`);
+                    }
+                    const pingResult = await ping.promise.probe(response.server.publicNet.ipv4.ip, {
+                        deadline: 30 // wait 30 seconds for response
+                    });
+                    if (!pingResult.alive) {
+                        reject('Server did not respond within 30 seconds.');
+                        return;
                     }
                     resolve({
                         action: 'create',

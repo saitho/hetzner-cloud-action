@@ -27,6 +27,7 @@
   "dependencies": {
     "@actions/core": "^1.2.4",
     "hcloud-js": "^1.2.0",
-    "hcloud-nodejs": "^0.1.9"
+    "hcloud-nodejs": "^0.1.9",
+    "ping": "^0.2.3"
   }
 }

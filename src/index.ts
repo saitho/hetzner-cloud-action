@@ -69,6 +69,9 @@ run().then((server: Server) => {
     if (server.action === 'create') {
         debug(`Created server with id ${server.id} (IPv4: ${server.ipv4}, IPv6: ${server.ipv6})`);
     }
+    if (server.isAlive === false) {
+        debug('NOTE: Server has not respond within 30 seconds after creation.')
+    }
 }).catch((error) => {
     debug(error);
     setFailed(error);

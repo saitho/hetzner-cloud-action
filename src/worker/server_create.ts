@@ -42,15 +42,12 @@ export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
                     const pingResult = await ping.promise.probe(response.server.publicNet.ipv4.ip, {
                         deadline: 30 // wait 30 seconds for response
                     });
-                    if (!pingResult.alive) {
-                        reject('Server did not respond within 30 seconds.');
-                        return;
-                    }
                     resolve({
                         action: 'create',
                         id: response.server.id,
                         ipv4: response.server.publicNet.ipv4.ip,
-                        ipv6: response.server.publicNet.ipv6.ip
+                        ipv6: response.server.publicNet.ipv6.ip,
+                        isAlive: pingResult.alive
                     });
                 })
                 .catch(reject);

@@ -28,7 +28,8 @@ export class ServerRemoveWorker extends ServerWorker<ServerRemoveData> {
                         action: 'remove',
                         id: this.data.serverId,
                         ipv4: null,
-                        ipv6: null
+                        ipv6: null,
+                        isAlive: null
                     });
                 })
                 .catch(reject);

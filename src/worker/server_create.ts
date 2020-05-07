@@ -39,16 +39,20 @@ export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
                     if (actionStatus === 'error') {
                         reject(`Creating the server failed. (action id: ${response.action.id})`);
                     }
-                    const pingResult = await ping.promise.probe(response.server.publicNet.ipv4.ip, {
-                        deadline: 30 // wait 30 seconds for response
-                    });
-                    resolve({
+
+                    const server = {
                         action: 'create',
                         id: response.server.id,
                         ipv4: response.server.publicNet.ipv4.ip,
                         ipv6: response.server.publicNet.ipv6.ip,
-                        isAlive: pingResult.alive
-                    });
+                        isAlive: null
+                    };
+
+                    ping.promise.probe(response.server.publicNet.ipv4.ip, {
+                        deadline: 30 // wait 30 seconds for response
+                    })
+                        .then((pingResult) => resolve({...server, isAlive: pingResult.alive}))
+                        .catch(() => resolve({...server, isAlive: false}))
                 })
                 .catch(reject);
         });

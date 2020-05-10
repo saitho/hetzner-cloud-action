@@ -16,7 +16,7 @@
 | server_image | Image used to create the server. | create | yes |
 | server_location | Location of your server | create | no (default: nbg1) |
 | server_ssh_key_name | Name of the SSH key you want to use to connect to the server.<br /><br />Requires you to add the public key in your Hetzner project panel. | create | no |
-| wait_for_ssh | If set action will wait for port 22 to be available before finishing. | create | no |
+| wait_for_ssh | If set action will wait for port 22 to be available before finishing. (Set one of these to enable: 1, true, yes) | create | no |
 
 ### Outputs
 
@@ -36,7 +36,7 @@ jobs:
     steps:
     # create a new server
     - name: Create new Hetzner server
-      id: setup_server
+      id: setup_server # set this to get the output in steps.setup_server.outputs
       uses: saitho/hetzner-cloud-action@master
       with:
         action: create
@@ -44,6 +44,7 @@ jobs:
         server_image: ubuntu-18.04
         server_location: fsn1
         server_ssh_key_name: github-ci
+        wait_for_ssh: 1 # wait until SSH on port 22 is ready for connections
       env:
         API_TOKEN: ${{ secrets.HETZNER_TOKEN }}
     # IPv4 address of created server is available in hcloud_server_created_ipv4
@@ -106,4 +107,4 @@ You can then use any SSH provider GitHub action to use the key within your build
     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 ```
 
-Also in the definition for @saitho/hetzner-cloud-action@ make sure to set `server_ssh_key_name` to the name you chose before (e.g. `github-ci`).
+Also in the definition for `saitho/hetzner-cloud-action` make sure to set `server_ssh_key_name` to the name you chose before (e.g. `github-ci`). If you can't connect to the server via SSH afterwards, you may want to set `wait_for_ssh` to make sure `saitho/hetzner-cloud-action` only continues when port 22 is available.

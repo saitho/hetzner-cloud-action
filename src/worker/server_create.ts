@@ -7,7 +7,8 @@ export interface ServerCreateData {
     serverType: string,
     serverImage: string,
     serverLocation?: string,
-    serverSshKeyName?: string
+    serverSshKeyName?: string,
+    waitForSsh: boolean
 }
 
 export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
@@ -37,6 +38,13 @@ export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
                     }
                     if (actionStatus === 'error') {
                         reject(`Removing the server failed. (action id: ${response.action.id})`);
+                    }
+                    if (this.data.waitForSsh) {
+                        const waitPort = require('wait-port')
+                        await waitPort({
+                            host: response.server.publicNet.ipv4.ip,
+                            port: 22,
+                        });
                     }
                     resolve({
                         action: 'create',

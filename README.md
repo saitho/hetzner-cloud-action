@@ -16,6 +16,7 @@
 | server_image | Image used to create the server. | create | yes |
 | server_location | Location of your server | create | no (default: nbg1) |
 | server_ssh_key_name | Name of the SSH key you want to use to connect to the server.<br /><br />Requires you to add the public key in your Hetzner project panel. | create | no |
+| wait_for_ssh | If set action will wait for port 22 to be available before finishing. | create | no |
 
 ### Outputs
 

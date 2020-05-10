@@ -26,6 +26,9 @@ inputs:
   server_ssh_key_name:
     description: Name of the SSH key you want to use to connect to the server.
     required: false
+  wait_for_ssh:
+    description: If set action will wait for port 22 to be available before finishing.
+    required: false
 outputs:
   hcloud_server_id:
     description: ID of the server affected by the last action

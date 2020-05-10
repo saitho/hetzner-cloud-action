@@ -4,7 +4,6 @@ import * as hcloud from 'hcloud-js';
 import {ServerCreateData, ServerCreateWorker} from "./worker/server_create";
 import {ServerRemoveData, ServerRemoveWorker} from "./worker/server_remove";
 import {ServerWorker} from "./worker/worker";
-import {Server} from "./interfaces/server";
 
 function getServerCreateData(): ServerCreateData {
     const serverType = getInput('server_type');
@@ -50,12 +49,12 @@ function run() {
         case 'create':
             data = getServerCreateData();
             debug(`Creating server. Data: ${data}`);
-            worker = new ServerCreateWorker(client, data);
+            worker = new ServerCreateWorker(client, setOutput, data);
             break;
         case 'remove':
             data = getServerRemoveData();
             debug(`Removing server. Data: ${data}`);
-            worker = new ServerRemoveWorker(client, data);
+            worker = new ServerRemoveWorker(client, setOutput, data);
             break;
         default:
             throw new Error(`Unknown action "${action}"`);
@@ -63,14 +62,7 @@ function run() {
     return worker.process();
 }
 
-run().then((server: Server) => {
-    setOutput('hcloud_server_id', server.id);
-    setOutput('hcloud_server_created_ipv4', server.ipv4);
-    setOutput('hcloud_server_created_ipv6', server.ipv6);
-    if (server.action === 'create') {
-        debug(`Created server with id ${server.id} (IPv4: ${server.ipv4}, IPv6: ${server.ipv6})`);
-    }
-}).catch((error) => {
+run().catch((error) => {
     debug(error);
     setFailed(error);
     console.error(error);

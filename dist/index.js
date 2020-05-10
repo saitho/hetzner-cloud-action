@@ -2679,26 +2679,19 @@ function run() {
         case 'create':
             data = getServerCreateData();
             core_1.debug(`Creating server. Data: ${data}`);
-            worker = new server_create_1.ServerCreateWorker(client, data);
+            worker = new server_create_1.ServerCreateWorker(client, core_1.setOutput, data);
             break;
         case 'remove':
             data = getServerRemoveData();
             core_1.debug(`Removing server. Data: ${data}`);
-            worker = new server_remove_1.ServerRemoveWorker(client, data);
+            worker = new server_remove_1.ServerRemoveWorker(client, core_1.setOutput, data);
             break;
         default:
             throw new Error(`Unknown action "${action}"`);
     }
     return worker.process();
 }
-run().then((server) => {
-    core_1.setOutput('hcloud_server_id', server.id);
-    core_1.setOutput('hcloud_server_created_ipv4', server.ipv4);
-    core_1.setOutput('hcloud_server_created_ipv6', server.ipv6);
-    if (server.action === 'create') {
-        core_1.debug(`Created server with id ${server.id} (IPv4: ${server.ipv4}, IPv6: ${server.ipv6})`);
-    }
-}).catch((error) => {
+run().catch((error) => {
     core_1.debug(error);
     core_1.setFailed(error);
     console.error(error);
@@ -5129,8 +5122,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const worker_1 = __webpack_require__(998);
 class ServerRemoveWorker extends worker_1.ServerWorker {
-    constructor(client, data) {
-        super(client);
+    constructor(client, outputFunc, data) {
+        super(client, outputFunc);
         this.data = data;
     }
     process() {
@@ -5145,12 +5138,8 @@ class ServerRemoveWorker extends worker_1.ServerWorker {
                     if (actionStatus === 'error') {
                         reject(`Removing the server failed. (action id: ${response.id})`);
                     }
-                    resolve({
-                        action: 'remove',
-                        id: this.data.serverId,
-                        ipv4: null,
-                        ipv6: null
-                    });
+                    this.setOutput('hcloud_server_id', this.data.serverId);
+                    resolve();
                 }))
                     .catch(reject);
             });
@@ -9050,8 +9039,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const worker_1 = __webpack_require__(998);
 class ServerCreateWorker extends worker_1.ServerWorker {
-    constructor(client, data) {
-        super(client);
+    constructor(client, outputFunc, data) {
+        super(client, outputFunc);
         this.data = data;
     }
     process() {
@@ -9074,6 +9063,9 @@ class ServerCreateWorker extends worker_1.ServerWorker {
                 if (actionStatus === 'error') {
                     reject(`Removing the server failed. (action id: ${response.action.id})`);
                 }
+                this.setOutput('hcloud_server_id', response.server.id);
+                this.setOutput('hcloud_server_created_ipv4', response.server.publicNet.ipv4.ip);
+                this.setOutput('hcloud_server_created_ipv6', response.server.publicNet.ipv6.ip);
                 if (this.data.waitForSsh) {
                     const waitPort = __webpack_require__(287);
                     yield waitPort({
@@ -9081,12 +9073,7 @@ class ServerCreateWorker extends worker_1.ServerWorker {
                         port: 22,
                     });
                 }
-                resolve({
-                    action: 'create',
-                    id: response.server.id,
-                    ipv4: response.server.publicNet.ipv4.ip,
-                    ipv6: response.server.publicNet.ipv6.ip
-                });
+                resolve();
             }))
                 .catch(reject);
         });
@@ -9413,10 +9400,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 class ServerWorker {
-    constructor(client) {
+    constructor(client, outputFunc) {
         this.client = null;
         this.data = null;
+        this.setOutput = null;
         this.client = client;
+        this.setOutput = outputFunc;
     }
     waitUntilFinished(actionId) {
         return new Promise((resolve) => __awaiter(this, void 0, void 0, function* () {

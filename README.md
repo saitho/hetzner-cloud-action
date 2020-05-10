@@ -20,11 +20,11 @@
 
 ### Outputs
 
-| Name             | Description |
-| ---------------- | -------------------------------------------- |
-| hcloud_server_id | ID of the server affected by the last action |
-| hcloud_server_created_ipv4 | IPv4 address of the created server |
-| hcloud_server_created_ipv6 | IPv6 address of the created server |
+| Name                       | Description                                  | Action scope   |
+| -------------------------- | -------------------------------------------- | -------------- |
+| hcloud_server_id           | ID of the server affected by the last action | create, remove |
+| hcloud_server_created_ipv4 | IPv4 address of the created server           | create         |
+| hcloud_server_created_ipv6 | IPv6 address of the created server           | create         |
 
 ### Example
 
@@ -76,6 +76,8 @@ jobs:
       - name: wait for server
         run: sleep 5 # wait for 5 seconds
 ```
+
+If you're specifically wait for the SSH port 22 to be available, set `wait_for_ssh=1` as input.
 
 ## SSH keys
 

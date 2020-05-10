@@ -1,6 +1,6 @@
-import {ServerWorker} from "./worker";
+import {ServerWorker, TOutputFunc} from "./worker";
 import * as hcloud from 'hcloud-js';
-import {Server} from "../interfaces/server";
+import {setOutput} from "@actions/core";
 
 export interface ServerCreateData {
     serverName: string,
@@ -12,14 +12,14 @@ export interface ServerCreateData {
 }
 
 export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
-    constructor(client: hcloud.Client, data: ServerCreateData) {
-        super(client);
+    constructor(client: hcloud.Client, outputFunc: TOutputFunc, data: ServerCreateData) {
+        super(client, outputFunc);
         this.data = data;
     }
 
     public process()
     {
-        return new Promise<Server>((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             const server = this.client.servers.build(this.data.serverName);
             server.serverType(this.data.serverType)
                 .image(this.data.serverImage);
@@ -39,6 +39,9 @@ export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
                     if (actionStatus === 'error') {
                         reject(`Removing the server failed. (action id: ${response.action.id})`);
                     }
+                    this.setOutput('hcloud_server_id', response.server.id);
+                    this.setOutput('hcloud_server_created_ipv4', response.server.publicNet.ipv4.ip);
+                    this.setOutput('hcloud_server_created_ipv6', response.server.publicNet.ipv6.ip);
                     if (this.data.waitForSsh) {
                         const waitPort = require('wait-port')
                         await waitPort({
@@ -46,12 +49,7 @@ export class ServerCreateWorker extends ServerWorker<ServerCreateData> {
                             port: 22,
                         });
                     }
-                    resolve({
-                        action: 'create',
-                        id: response.server.id,
-                        ipv4: response.server.publicNet.ipv4.ip,
-                        ipv6: response.server.publicNet.ipv6.ip
-                    });
+                    resolve();
                 })
                 .catch(reject);
         });

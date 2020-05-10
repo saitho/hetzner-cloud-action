@@ -1,7 +1,7 @@
 {
   "plugins": [
     "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator"
+    "@semantic-release/release-notes-generator",
     [
       "@semantic-release/exec",
       {"prepareCmd": "git add node_modules dist -f"}

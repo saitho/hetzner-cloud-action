@@ -11,7 +11,8 @@ function getServerCreateData(): ServerCreateData {
     const data: ServerCreateData = {
         serverName: getInput('server_name'),
         serverType: serverType.length ? serverType : 'cx11',
-        serverImage: getInput('server_image')
+        serverImage: getInput('server_image'),
+        waitForSsh: ['1', 'true', 'yes'].includes( getInput('wait_for_ssh') )
     };
     const serverLocation = getInput('server_location');
     if (serverLocation.length > 0) {

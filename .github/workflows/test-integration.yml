@@ -49,7 +49,7 @@ jobs:
           server_ssh_key_name: github-ci
         env:
           API_TOKEN: ${{ secrets.HETZNER_TOKEN }}
-      - uses: webfactory/ssh-agent@v0.2.0
+      - uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Work with the server

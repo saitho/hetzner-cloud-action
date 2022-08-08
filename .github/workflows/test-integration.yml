@@ -10,7 +10,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
       - name: Install
         run: npm i -g pnpm && pnpm i
       - name: Build
@@ -34,7 +34,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 16
 
       - name: Install
         run: npm i -g pnpm && pnpm i -P

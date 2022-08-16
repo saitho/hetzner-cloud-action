@@ -13,10 +13,10 @@
   "devDependencies": {
     "@saithodev/semantic-release-sharedconf-npm": "^2.0.2",
     "@types/node": "^13.13.4",
-    "@zeit/ncc": "^0.22.1",
-    "commitizen": "^4.0.3",
+    "@vercel/ncc": "^0.34.0",
+    "commitizen": "^4.2.5",
     "cz-conventional-changelog": "^3.0.2",
-    "semantic-release": "^17.2.3",
+    "semantic-release": "^19.0.3",
     "typescript": "^3.7.3"
   },
   "config": {
@@ -25,9 +25,9 @@
     }
   },
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "hcloud-js": "^1.2.0",
+    "@actions/core": "^1.9.0",
+    "hcloud-js": "^1.4.1",
     "hcloud-nodejs": "^0.1.9",
-    "wait-port": "^0.2.7"
+    "wait-port": "^0.3.0"
   }
 }

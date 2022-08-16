@@ -7,21 +7,14 @@ import {ServerWorker} from "./worker/worker";
 
 function getServerCreateData(): ServerCreateData {
     const serverType = getInput('server_type');
-    const data: ServerCreateData = {
+    return {
         serverName: getInput('server_name'),
         serverType: serverType.length ? serverType : 'cx11',
         serverImage: getInput('server_image'),
-        waitForSsh: ['1', 'true', 'yes'].includes( getInput('wait_for_ssh') )
+        waitForSsh: ['1', 'true', 'yes'].includes( getInput('wait_for_ssh') ),
+        serverLocation: getInput('server_location'),
+        serverSshKeyName: getInput('server_ssh_key_name')
     };
-    const serverLocation = getInput('server_location');
-    if (serverLocation.length > 0) {
-        data.serverLocation = serverLocation;
-    }
-    const serverSshKeyName = getInput('server_ssh_key_name');
-    if (serverSshKeyName.length > 0) {
-        data.serverSshKeyName = serverSshKeyName;
-    }
-    return data;
 }
 
 function getServerRemoveData(): ServerRemoveData {
@@ -48,12 +41,12 @@ function run() {
     switch (action) {
         case 'create':
             data = getServerCreateData();
-            debug(`Creating server. Data: ${data}`);
+            debug(`Creating server. Data: ${JSON.stringify(data)}`);
             worker = new ServerCreateWorker(client, setOutput, data);
             break;
         case 'remove':
             data = getServerRemoveData();
-            debug(`Removing server. Data: ${data}`);
+            debug(`Removing server. Data: ${JSON.stringify(data)}`);
             worker = new ServerRemoveWorker(client, setOutput, data);
             break;
         default:

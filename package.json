@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.9.1",
     "hcloud-js": "^1.2.0",
     "hcloud-nodejs": "^0.1.9",
     "wait-port": "^0.2.7"
